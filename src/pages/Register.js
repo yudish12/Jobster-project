@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../features/userSlice/userslice";
 import { clearError } from "../features/userSlice/userslice";
+import { getUserFromLocalStorage } from "../Api/localStorage";
+import { useNavigate } from "react-router-dom";
 // redux toolkit and useNavigate later
 
 const initialState = {
@@ -18,10 +20,12 @@ const initialState = {
 // global state
 
 function Register() {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState(initialState);
 
-  const state = useSelector((state) => state);
-
+  const { user, error, isLoading } = useSelector((state) => state.user);
+  console.log(user);
   const dispatch = useDispatch();
 
   // redux toolkit and useNavigate later
@@ -50,11 +54,14 @@ function Register() {
   };
 
   useEffect(() => {
-    if (state.user.error) {
-      toast.error(state.user.error);
+    if (error) {
+      toast.error(error);
+    }
+    if (user) {
+      navigate("/");
     }
     dispatch(clearError());
-  }, [dispatch, state.user.error]);
+  }, [dispatch, error, user, navigate]);
 
   return (
     <Wrapper className="full-page">

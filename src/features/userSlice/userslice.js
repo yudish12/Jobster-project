@@ -10,7 +10,7 @@ export const userRegister = createAsyncThunk("user/register", registerThunk);
 const initialState = {
   isLoading: false,
   error: null,
-  user: getUserFromLocalStorage,
+  user: getUserFromLocalStorage(),
 };
 
 const userSlice = createSlice({
