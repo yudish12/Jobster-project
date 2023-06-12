@@ -4,7 +4,7 @@ import Wrapper from "../assets/wrappers/RegisterPage";
 import FormRow from "../Components/FormRow";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { userRegister } from "../features/userSlice/userslice";
+import { userLogin, userRegister } from "../features/userSlice/userslice";
 import { clearError } from "../features/userSlice/userslice";
 import { getUserFromLocalStorage } from "../Api/localStorage";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +47,8 @@ function Register() {
     //   return;
     // }
     if (isMember) {
-      return dispatch();
+      console.log("asd");
+      dispatch(userLogin({ email, password }));
     } else {
       dispatch(userRegister({ name, email, password }));
     }

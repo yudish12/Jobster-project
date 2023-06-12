@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { registerThunk } from "./userThunk";
+import { loginThunk, registerThunk } from "./userThunk";
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
 } from "../../Api/localStorage";
 import { toast } from "react-toastify";
+
 export const userRegister = createAsyncThunk("user/register", registerThunk);
+export const userLogin = createAsyncThunk("user/login", loginThunk);
 
 const initialState = {
   isLoading: false,
@@ -33,6 +35,15 @@ const userSlice = createSlice({
       toast.success(`Hello There ${user.name}`);
     });
     builder.addCase(userRegister.rejected, (state, action) => {
+      state.error = action.payload;
+    });
+    builder.addCase(userLogin.fulfilled, (state, action) => {
+      const user = action.payload;
+      state.user = user;
+      addUserToLocalStorage(user);
+      toast.success(`Hello There ${user.name}`);
+    });
+    builder.addCase(userLogin.rejected, (state, action) => {
       state.error = action.payload;
     });
   },
