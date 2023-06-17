@@ -324,3 +324,21 @@ ul {
 .Toastify__toast {
   text-transform: capitalize;
 }
+/* @media (min-width: 992px) {
+  .dCCOSc .sidebar-container {
+    background: var(--white);
+    min-height: 100vh;
+    height: 100%;
+    width: 250px;
+    margin-left: -250px;
+    transition: var(--transition);
+  }
+  .dCCOSc .show-sidebar {
+    margin-left: 0px;
+  }
+} */
+.submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
