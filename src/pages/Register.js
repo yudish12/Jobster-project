@@ -8,6 +8,7 @@ import { userLogin, userRegister } from "../features/userSlice/userslice";
 import { clearError } from "../features/userSlice/userslice";
 import { getUserFromLocalStorage } from "../Api/localStorage";
 import { useNavigate } from "react-router-dom";
+import Loader from "../Components/Loader";
 // redux toolkit and useNavigate later
 
 const initialState = {
@@ -64,6 +65,13 @@ function Register() {
     dispatch(clearError());
   }, [dispatch, error, user, navigate]);
 
+  useEffect(() => {
+    // Define the 'otpless' function
+    window.otpless = (otplessUser) => {
+      alert(JSON.stringify(otplessUser));
+    };
+  }, []);
+
   return (
     <Wrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
@@ -96,7 +104,7 @@ function Register() {
         />
 
         <button type="submit" className="btn btn-block">
-          submit
+          {isLoading ? <Loader /> : "Submit"}
         </button>
         <p>
           {values.isMember ? "Not a member yet?" : "Already a member?"}
